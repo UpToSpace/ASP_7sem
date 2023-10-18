@@ -1,0 +1,71 @@
+﻿    <div>
+        <p id="get_result"></p>
+        <button onclick="fetchGet()">Get</button>
+    </div>
+    <br />
+
+    <div>
+        <p id="post_result"></p>
+        <button onclick="fetchPost()">Post</button>
+    </div>
+    <br />
+
+    <div>
+        <p id="put_result"></p>
+        <button onclick="fetchPut()">Put</button>
+    </div>
+    <br />
+
+    <div>
+        <p id="delete_result"></p>
+        <button onclick="fetchDelete()">Delete</button>
+    </div>
+    <br />
+
+<script>
+    let url = "https://localhost:64002/api/values"
+    function getElement(id) {
+        return document.getElementById(id)
+    }
+
+    function setInnerHTML(element, value) {
+        element.innerHTML = value
+    }
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function fetchGet(event) {
+        $.ajax({
+            url: url,         
+            method: 'get',             
+            dataType: 'json',    
+            success: function (data) {   
+                let paragraph = getElement("get_result")
+                setInnerHTML(paragraph, JSON.parse(data).result)
+            }
+        });
+    }
+
+    function fetchPost(event) {
+        $.ajax({
+            url: url + "?RESULT=" + getRandomInt(10),
+            method: 'post'
+        });
+    }
+
+    function fetchPut(event) {
+        $.ajax({
+            url: url + "?ADD=" + getRandomInt(10),
+            method: 'put'
+        });
+    }
+
+    function fetchDelete(event) {
+        $.ajax({
+            url: url,
+            method: 'delete'
+        });
+    }
+</script>
