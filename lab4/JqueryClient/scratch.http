@@ -1,0 +1,7 @@
+POST http://localhost/04_SOAP_V2/Services/Simplex.asmx/addS
+Content-Type: application/json
+
+{
+  "x": 1,
+  "y": 2
+}

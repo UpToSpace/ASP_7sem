@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="_08_JsonRpc.MvcApplication" Language="C#" %>

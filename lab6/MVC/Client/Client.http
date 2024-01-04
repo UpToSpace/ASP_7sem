@@ -1,0 +1,14 @@
+####
+GET http://localhost:49240/WcfDataService1.svc/Student
+
+####
+GET http://localhost:49240/WcfDataService1.svc/Student(1)
+
+###
+GET http://localhost:49240/WcfDataService1.svc/Student?$filter=name eq 'Student2'
+
+###
+GET http://localhost:49240/WcfDataService1.svc/Student?$select=name
+
+###
+GET http://localhost:49240/WcfDataService1.svc/Student?$orderby=id desc

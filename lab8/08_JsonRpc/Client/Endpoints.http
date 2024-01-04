@@ -1,0 +1,126 @@
+### POST SINGLE SETM
+POST http://localhost:5000/api/jrpc/single
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "Jsonrpc": "2.0",
+  "Method": "SetM",
+  "Parameters": {
+    "k": "v",
+    "n": 1
+  }
+}
+
+### POST SINGLE GETM
+POST http://localhost:5000/api/jrpc/single
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "Jsonrpc": "2.0",
+  "Method": "GetM",
+  "Parameters": {
+    "k": "v"
+  }
+}
+
+### POST MULTI SETM , GETM , SETM, GETM
+
+POST http://localhost:5000/api/jrpc/multi
+Content-Type: application/json
+
+[
+  {
+    "Id": 1,
+    "Jsonrpc": "2.0",
+    "Method": "SetM",
+    "Parameters": {
+      "k": "v",
+      "n": 1
+    }
+  },
+  {
+    "Id": 2,
+    "Jsonrpc": "2.0",
+    "Method": "GetM",
+    "Parameters": {
+      "k": "v"
+    }
+  },
+  {
+    "Id": 32,
+    "Jsonrpc": "2.0",
+    "Method": "GetM",
+    "Parameters": {
+      "k": "z"
+    }
+  },
+  {
+    "Id": 3,
+    "Jsonrpc": "2.0",
+    "Method": "SetM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 33,
+    "Jsonrpc": "2.0",
+    "Method": "AddM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 333,
+    "Jsonrpc": "2.0",
+    "Method": "SubM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 3333,
+    "Jsonrpc": "2.0",
+    "Method": "MulM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 33333,
+    "Jsonrpc": "2.0",
+    "Method": "DivM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 34,
+    "Jsonrpc": "2.0",
+    "Method": "SetM",
+    "Parameters": {
+      "k": "v",
+      "n": 3
+    }
+  },
+  {
+    "Id": 666,
+    "Jsonrpc": "2.0",
+    "Method": "ErrorExit"
+  },
+  {
+    "Id": 4,
+    "Jsonrpc": "2.0",
+    "Method": "GetM",
+    "Parameters": {
+      "k": "v"
+    }
+  }
+]

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <script src="./Scripts/jquery-3.4.1.js"></script>
+    <script>
+        function add() {
+
+            let x = parseInt($("#x").val()),
+                y = parseInt($("#y").val());
+
+            const data = `{"x":${x},"y":${y}}`;
+
+            $.ajax({
+                url: "http://localhost/04_SOAP_V2/Services/Simplex.asmx/add",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                body: data,
+                success: result => {
+                    $("#result").text(JSON.stringify(result));
+                },
+                error: error => {
+                    console.log(error);
+                }
+            })
+        }
+
+    </script>
+    <title>Web Form for ASMX</title>
+</head>
+<body>
+<form id="form1" runat="server">
+    <div>
+        <div>
+            <input type="text" id="x"/>
+            <input type="text" id="y"/>
+            <input type="button" onclick="add()" value="add" />
+        </div>
+        <div id="result"></div>
+    </div>
+</form>
+</body>
+</html>

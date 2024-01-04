@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://kvs/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://kvs/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for webservice Lab4</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://kvs/">
+      <s:element name="add">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="x" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="y" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="addResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="concat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="s" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="d" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="concatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="concatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="a1" type="tns:A" />
+            <s:element minOccurs="0" maxOccurs="1" name="a2" type="tns:A" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="A">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="s" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="k" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="f" type="s:float" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="sumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sumResult" type="tns:A" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="x" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="y" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="addSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="addSoapIn">
+    <wsdl:part name="parameters" element="tns:add" />
+  </wsdl:message>
+  <wsdl:message name="addSoapOut">
+    <wsdl:part name="parameters" element="tns:addResponse" />
+  </wsdl:message>
+  <wsdl:message name="concatSoapIn">
+    <wsdl:part name="parameters" element="tns:concat" />
+  </wsdl:message>
+  <wsdl:message name="concatSoapOut">
+    <wsdl:part name="parameters" element="tns:concatResponse" />
+  </wsdl:message>
+  <wsdl:message name="sumSoapIn">
+    <wsdl:part name="parameters" element="tns:sum" />
+  </wsdl:message>
+  <wsdl:message name="sumSoapOut">
+    <wsdl:part name="parameters" element="tns:sumResponse" />
+  </wsdl:message>
+  <wsdl:message name="addSSoapIn">
+    <wsdl:part name="parameters" element="tns:addS" />
+  </wsdl:message>
+  <wsdl:message name="addSSoapOut">
+    <wsdl:part name="parameters" element="tns:addSResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SimplexSoap">
+    <wsdl:operation name="Add">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for ASMX Add(int, int)</wsdl:documentation>
+      <wsdl:input name="add" message="tns:addSoapIn" />
+      <wsdl:output name="add" message="tns:addSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Concat">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for ASMX Concat(string, double)</wsdl:documentation>
+      <wsdl:input name="concat" message="tns:concatSoapIn" />
+      <wsdl:output name="concat" message="tns:concatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sum">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for ASMX Sum(A, A)</wsdl:documentation>
+      <wsdl:input name="sum" message="tns:sumSoapIn" />
+      <wsdl:output name="sum" message="tns:sumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for ASMX AddS(int, int)</wsdl:documentation>
+      <wsdl:input name="addS" message="tns:addSSoapIn" />
+      <wsdl:output name="addS" message="tns:addSSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SimplexSoap" type="tns:SimplexSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Add">
+      <soap:operation soapAction="http://kvs/add" style="document" />
+      <wsdl:input name="add">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="add">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Concat">
+      <soap:operation soapAction="http://kvs/concat" style="document" />
+      <wsdl:input name="concat">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="concat">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sum">
+      <soap:operation soapAction="http://kvs/sum" style="document" />
+      <wsdl:input name="sum">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sum">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddS">
+      <soap:operation soapAction="http://kvs/addS" style="document" />
+      <wsdl:input name="addS">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="addS">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SimplexSoap12" type="tns:SimplexSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Add">
+      <soap12:operation soapAction="http://kvs/add" style="document" />
+      <wsdl:input name="add">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="add">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Concat">
+      <soap12:operation soapAction="http://kvs/concat" style="document" />
+      <wsdl:input name="concat">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="concat">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sum">
+      <soap12:operation soapAction="http://kvs/sum" style="document" />
+      <wsdl:input name="sum">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sum">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddS">
+      <soap12:operation soapAction="http://kvs/addS" style="document" />
+      <wsdl:input name="addS">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="addS">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Simplex">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Desc for webservice Lab4</wsdl:documentation>
+    <wsdl:port name="SimplexSoap" binding="tns:SimplexSoap">
+      <soap:address location="http://localhost/04_SOAP_V2/Services/Simplex.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SimplexSoap12" binding="tns:SimplexSoap12">
+      <soap12:address location="http://localhost/04_SOAP_V2/Services/Simplex.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

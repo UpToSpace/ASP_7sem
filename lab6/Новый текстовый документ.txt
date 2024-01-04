@@ -1,0 +1,24 @@
+version: '3.8'
+
+
+volumes:
+  sqlserver_data:
+  
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${Sa_Password:-password123}
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+  sqlserver.configurator:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    command: >
+      bash -c '
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${Sa_Password:-password123} -d master -i docker-entrypoint-initdb.d/init.sql;
+      echo "All done!";
+      '

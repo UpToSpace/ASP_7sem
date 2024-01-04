@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08_JsonRpc", "08_JsonRpc\08_JsonRpc.csproj", "{60A84F3D-F605-4D25-9FCE-1E77EBA45F52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60A84F3D-F605-4D25-9FCE-1E77EBA45F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A84F3D-F605-4D25-9FCE-1E77EBA45F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A84F3D-F605-4D25-9FCE-1E77EBA45F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A84F3D-F605-4D25-9FCE-1E77EBA45F52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

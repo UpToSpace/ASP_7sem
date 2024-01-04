@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON-RPC Page</title>
+    <script> 
+        let counter = 1;
+        const MainUrl = "http://localhost:5000/api/jrpc";
+        async function sendRequest(url,request) {
+            try {
+                const response = await fetch(MainUrl+url, {
+                    method: "POST",
+                    credentials : "include",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(request)
+                });
+
+                return await response.json();
+            } catch (error) {
+                throw new Error(error);
+            }
+        }
+
+        async function sendSingleRequest() {
+            const url = "/single";
+            const method = document.getElementById("singleMethod").value;
+            const params = {
+                k: document.getElementById("singleParamK").value,
+                n: parseInt(document.getElementById("singleParamN").value)
+            };
+
+            const request = {
+                Id: 0,
+                Jsonrpc: "2.0",
+                Method: method,
+                Parameters: params
+            };
+            console.log("Request to send: ", request);
+            
+            try {
+                const response = await sendRequest(url,request);
+                document.getElementById("singleResult").innerText = JSON.stringify(response);
+            } catch (error) {
+                document.getElementById("singleResult").innerText = "Error: " + error;
+            }
+        }
+
+        async function sendMultiRequest() {
+            const url = "/multi";
+            const requests = [];
+
+            const multiRequestElements = document.getElementsByClassName("multiRequest");
+            for (let i = 0; i < multiRequestElements.length; i++) {
+                const method = multiRequestElements[i].getElementsByClassName("multiMethod")[0].value;
+                const paramK = multiRequestElements[i].getElementsByClassName("multiParamK")[0].value;
+                const paramN = parseInt(multiRequestElements[i].getElementsByClassName("multiParamN")[0].value);
+                const id = + multiRequestElements[i].id;
+                
+                requests.push({
+                    Id: +id,
+                    Jsonrpc: "2.0",
+                    Method: method,
+                    Parameters: {
+                        k: paramK,
+                        n: paramN
+                    }
+                });
+            }
+
+            console.log(requests);
+
+            try {
+                const response = await sendRequest(url,requests);
+                document.getElementById("multiResult").innerText = 
+                    JSON.stringify(response).replace(/},/g, "},\n");
+            } catch (error) {
+                document.getElementById("multiResult").innerText = "Error: " + error;
+            }
+        }
+
+        function addMultiRequest() {
+            const multiRequestContainer = document.getElementById("multiRequestContainer");
+
+            const div = document.createElement("div");
+            div.classList.add("multiRequest");
+            div.id = `${counter++}`;
+            
+            const idLabel = document.createElement("label");
+            idLabel.textContent = div.id + "   ";
+
+            const methodLabel = document.createElement("label");
+            methodLabel.textContent = "Method:";
+            const methodInput = document.createElement("input");
+            methodInput.classList.add("multiMethod");
+            const paramKLabel = document.createElement("label");
+            paramKLabel.textContent = "Parameter k:";
+            const paramKInput = document.createElement("input");
+            paramKInput.classList.add("multiParamK");
+            const paramNLabel = document.createElement("label");
+            paramNLabel.textContent = "Parameter n:";
+            const paramNInput = document.createElement("input");
+            paramNInput.classList.add("multiParamN");
+            
+            const removeButton = document.createElement("button");
+            
+            removeButton.onclick = function() {
+                const id = this.parentNode.id;
+                removeRequestById(id);
+            };
+            removeButton.textContent = "Remove";
+
+            div.appendChild(idLabel);
+            div.appendChild(methodLabel);
+            div.appendChild(methodInput);
+            div.appendChild(paramKLabel);
+            div.appendChild(paramKInput);
+            div.appendChild(paramNLabel);
+            div.appendChild(paramNInput);
+            div.appendChild(removeButton);
+
+            multiRequestContainer.appendChild(div);
+        }
+
+        function removeRequestById(id) {
+            const multiRequestContainer = document.getElementById(`${id}`);
+            multiRequestContainer.remove();
+        }
+    </script>
+</head>
+<body>
+<h1>JSON-RPC Page</h1>
+
+<h2>Single Request</h2>
+<div>
+    <label for="singleMethod">Method:</label>
+    <input type="text" id="singleMethod" />
+
+    <label for="singleParamK">Parameter k:</label>
+    <input type="text" id="singleParamK" />
+
+    <label for="singleParamN">Parameter n:</label>
+    <input type="number" id="singleParamN" />
+
+    <button onclick="sendSingleRequest()">Send Request</button>
+</div>
+<div>
+    <label for="singleResult">Result:</label>
+    <pre id="singleResult"></pre>
+</div>
+
+<h2>Multi Request</h2>
+<div id="multiRequestContainer">
+</div>
+<button onclick="addMultiRequest()">Add Request</button>
+<button onclick="sendMultiRequest()">Send Requests</button>
+<div>
+    <label for="multiResult">Result:</label>
+    <pre id="multiResult"></pre>
+</div>
+</body>
+</html>
